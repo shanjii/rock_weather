@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rock_weather/app/pages/home.dart';
+import 'package:rock_weather/app/presentation/screens/home/home.dart';
 
 void main() {
   runApp(
@@ -14,10 +14,20 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Rock Weather',
-      theme: ThemeData(
-        useMaterial3: true,
-      ),
-      home: const HomePage(title: 'Flutter Demo Home Page'),
+      theme: _setTheme(),
+      home: const Home(),
     );
   }
+}
+
+ThemeData _setTheme() {
+  return ThemeData.dark().copyWith(
+    pageTransitionsTheme: const PageTransitionsTheme(
+      builders: <TargetPlatform, PageTransitionsBuilder>{
+        TargetPlatform.android: ZoomPageTransitionsBuilder(
+          allowEnterRouteSnapshotting: false,
+        ),
+      },
+    ),
+  );
 }
