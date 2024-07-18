@@ -37,6 +37,7 @@ class DetailsController with ChangeNotifier {
     _setLoadingState(true);
 
     final result = await futureForecastUsecase(city.location);
+
     if (result is Right<Failure, List<ForecastEntity>>) {
       dailyForecasts = _groupForecastsByDay(result.value);
     }
@@ -47,6 +48,7 @@ class DetailsController with ChangeNotifier {
   _groupForecastsByDay(List<ForecastEntity> forecasts) {
     List<DateTime> days = [];
 
+    //Create a list of which days exist in the forecasts
     DateTime? matchDay;
     for (var value in forecasts) {
       var dateTime = Convertions.unixToDateTime(value.dt);
@@ -56,6 +58,7 @@ class DetailsController with ChangeNotifier {
       matchDay = dateTime;
     }
 
+    //Return a DayForecast object for each day found, containing its respective forecast information
     return days.map((x) {
       return DayForecast(
         day: x,

@@ -30,20 +30,24 @@ class HomeController with ChangeNotifier {
 
   bool isLoading = false;
 
+  List<City> _allCities = [];
   List<City> filteredCities = [];
-  List<City> allCities = [];
 
   getAllCurrentWeather() async {
     _setLoadingState(true);
 
+    //Get all the locations managed by the app
     const locations = Constants.locations;
 
+    //Get the weather for each location
     List<Future<City>> requests = locations.map((e) {
       return getWeather(e);
     }).toList();
 
-    allCities = await Future.wait(requests);
-    filteredCities = allCities;
+    _allCities = await Future.wait(requests);
+
+    //Default filtered state contains all cities
+    filteredCities = _allCities;
 
     _setLoadingState(false);
   }
@@ -54,17 +58,18 @@ class HomeController with ChangeNotifier {
     if (result is Right<Failure, ForecastEntity>) {
       return City(location: location, forecast: result.value);
     } else {
+      //Return a city with null forecast in case of a failure
       return City(location: location, forecast: null);
     }
   }
 
   filterCities(String cityName) {
     if (cityName.isEmpty) {
-      filteredCities = allCities;
+      filteredCities = _allCities;
     } else {
       final parsedName = Convertions.simplifyString(cityName);
 
-      filteredCities = allCities.where((e) {
+      filteredCities = _allCities.where((e) {
         final name = Convertions.simplifyString(e.location.name);
         return name.contains(parsedName);
       }).toList();
