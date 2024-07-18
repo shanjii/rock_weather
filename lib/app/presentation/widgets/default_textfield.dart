@@ -57,7 +57,9 @@ class DefaultTextField extends StatelessWidget {
         controller: controller,
         enableSuggestions: enableSuggestions,
         keyboardType: textInputType,
-        onTapOutside: (event) => FocusScope.of(context).unfocus(),
+        onTapOutside: (event) {
+          WidgetsBinding.instance.focusManager.primaryFocus?.unfocus();
+        },
         onChanged: onChanged,
         maxLines: maxLines,
         decoration: InputDecoration(
