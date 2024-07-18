@@ -25,6 +25,7 @@ class _HomePageState extends State<Home> {
         body: Consumer<HomeController>(
           builder: (context, controller, _) {
             return NestedScrollView(
+              floatHeaderSlivers: true,
               headerSliverBuilder: (context, innerBoxIsScrolled) {
                 return [
                   _createLoadingIndicatorSliver(controller),
@@ -52,6 +53,7 @@ class _HomePageState extends State<Home> {
   _createSearchBarSliver(HomeController controller) {
     return SliverAppBar(
       toolbarHeight: 80,
+      floating: true,
       backgroundColor: Theme.of(context).colorScheme.surfaceContainerLow,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
