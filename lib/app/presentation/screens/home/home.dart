@@ -54,7 +54,7 @@ class _HomePageState extends State<Home> {
     return SliverAppBar(
       toolbarHeight: 80,
       floating: true,
-      backgroundColor: Theme.of(context).colorScheme.surfaceContainerLow,
+      backgroundColor: Theme.of(context).colorScheme.surfaceContainerHigh,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
           bottomLeft: Constants.defaultBorderRadius,
@@ -79,6 +79,7 @@ class _HomePageState extends State<Home> {
       pinned: true,
       title: LinearProgressIndicator(
         value: controller.isLoading ? null : 0,
+        backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
         minHeight: 5,
       ),
     );
