@@ -28,27 +28,39 @@ class HomeCard extends StatelessWidget {
 
   _createContent() {
     if (city.forecast != null) {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(city.location.name),
-          Column(
-            children: [
-              _createWeatherEntry(
-                "Clouds:",
-                city.forecast!.weather.first.main,
-              ),
-              _createWeatherEntry(
-                "Temperature:",
-                city.forecast!.main.temp,
-              ),
-              _createWeatherEntry(
-                "Feels like:",
-                city.forecast!.main.feelsLike,
-              ),
-            ],
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  city.location.name,
+                  style: const TextStyle(fontSize: 28),
+                ),
+                Text(
+                  city.forecast!.weather.first.main ?? "",
+                  style: const TextStyle(fontSize: 20),
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _createLabelRow(
+                      label: "Temperature:",
+                      value: _formatValue(city.forecast!.main.temp),
+                    ),
+                    _createLabelRow(
+                      label: "Feels like:",
+                      value: _formatValue(city.forecast!.main.feelsLike),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
+          const Icon(Icons.list, size: 32),
         ],
       );
     } else {
@@ -63,7 +75,17 @@ class HomeCard extends StatelessWidget {
     }
   }
 
-  Widget _createWeatherEntry(String name, dynamic value) {
-    return Text("$name ${value ?? "Unavailable"}");
+  Widget _createLabelRow({
+    required String label,
+    required String value,
+  }) {
+    return Text(
+      "$label $value",
+      style: const TextStyle(fontSize: 16),
+    );
+  }
+
+  _formatValue(double? value) {
+    return value?.toInt().toString() ?? "null";
   }
 }

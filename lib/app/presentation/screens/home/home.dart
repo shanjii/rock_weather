@@ -19,7 +19,7 @@ class _HomePageState extends State<Home> {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          title: const Text("Rock Weather"),
+          title: const Text("Current weather"),
         ),
         body: Consumer<HomeController>(
           builder: (context, controller, _) {
