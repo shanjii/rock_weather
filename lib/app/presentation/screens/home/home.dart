@@ -62,6 +62,10 @@ class _HomePageState extends State<Home> {
       title: DefaultTextField(
         hintText: "Search for a city name",
         onChanged: (p0) => controller.filterCities(p0),
+        suffixIcon: const Icon(Icons.search),
+        suffixAction: () {
+          WidgetsBinding.instance.focusManager.primaryFocus?.unfocus();
+        },
       ),
     );
   }

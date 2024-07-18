@@ -35,7 +35,7 @@ class DefaultTextField extends StatelessWidget {
 
   ///Receives a function to be activated when the [suffixIcon] widget is depressed.
   ///<br/>If [suffixIcon] is not provided, the [suffixAction] function will be ignored.
-  final Function()? suffixAction;
+  final VoidCallback? suffixAction;
 
   ///Used to enable or disable keyboard suggestions on the [TextField]. **Default: false**
   ///<br/>(Has the effect of a text underline while typing)
@@ -73,12 +73,12 @@ class DefaultTextField extends StatelessWidget {
     );
   }
 
-  _createIcon(Widget? widget, {Function()? action}) {
+  _createIcon(Widget? widget, {VoidCallback? action}) {
     if (widget == null) return null;
     return SizedBox(
       width: 25,
       child: IconButton(
-        onPressed: () => action != null ? action() : null,
+        onPressed: action,
         icon: widget,
       ),
     );
