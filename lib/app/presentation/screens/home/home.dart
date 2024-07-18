@@ -23,33 +23,50 @@ class _HomePageState extends State<Home> {
         ),
         body: Consumer<HomeController>(
           builder: (context, controller, _) {
-            return RefreshIndicator(
-              onRefresh: () async => await controller.getAllCurrentWeather(),
-              child: Column(
-                children: [
-                  LinearProgressIndicator(
-                    value: controller.isLoading ? null : 0,
-                  ),
-                  DefaultTextField(
-                    padding: const EdgeInsets.all(10),
-                    hintText: "Search for a city name",
-                    onChanged: (p0) => controller.filterCities(p0),
-                  ),
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: controller.filteredCities.length,
-                      itemBuilder: (context, index) {
-                        return HomeCard(
-                          city: controller.filteredCities[index],
-                        );
-                      },
-                    ),
-                  ),
-                ],
+            return NestedScrollView(
+              headerSliverBuilder: (context, innerBoxIsScrolled) {
+                return [
+                  _createLoadingIndicatorSliver(controller),
+                  _createSearchBarSliver(controller),
+                ];
+              },
+              body: RefreshIndicator(
+                onRefresh: () async => await controller.getAllCurrentWeather(),
+                child: ListView.builder(
+                  itemCount: controller.filteredCities.length,
+                  itemBuilder: (context, index) {
+                    return HomeCard(
+                      city: controller.filteredCities[index],
+                    );
+                  },
+                ),
               ),
             );
           },
         ),
+      ),
+    );
+  }
+
+  _createSearchBarSliver(HomeController controller) {
+    return SliverAppBar(
+      toolbarHeight: 80,
+      backgroundColor: Theme.of(context).colorScheme.surfaceContainer,
+      title: DefaultTextField(
+        hintText: "Search for a city name",
+        onChanged: (p0) => controller.filterCities(p0),
+      ),
+    );
+  }
+
+  _createLoadingIndicatorSliver(HomeController controller) {
+    return SliverAppBar(
+      toolbarHeight: 5,
+      titleSpacing: 0,
+      pinned: true,
+      title: LinearProgressIndicator(
+        value: controller.isLoading ? null : 0,
+        minHeight: 5,
       ),
     );
   }
