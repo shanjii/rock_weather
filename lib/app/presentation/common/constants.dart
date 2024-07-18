@@ -3,11 +3,13 @@ import 'package:rock_weather/app/presentation/models/coordinates.dart';
 import 'package:rock_weather/app/presentation/models/location.dart';
 
 class Constants {
-  static const defaultBorderRadius = BorderRadius.all(Radius.circular(16));
+  static const defaultBorderRadiusAll = BorderRadius.all(Radius.circular(16));
+
+  static const defaultBorderRadius = Radius.circular(16);
 
   static const defaultRectangleBorder = RoundedRectangleBorder(
     side: BorderSide.none,
-    borderRadius: defaultBorderRadius,
+    borderRadius: defaultBorderRadiusAll,
   );
 
   //Preset locations with names and coordinates

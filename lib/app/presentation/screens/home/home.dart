@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:rock_weather/app/presentation/common/constants.dart';
 import 'package:rock_weather/app/presentation/controllers/home_controller.dart';
 import 'package:rock_weather/app/presentation/screens/home/widgets/home_card.dart';
 import 'package:rock_weather/app/presentation/widgets/default_textfield.dart';
@@ -51,7 +52,13 @@ class _HomePageState extends State<Home> {
   _createSearchBarSliver(HomeController controller) {
     return SliverAppBar(
       toolbarHeight: 80,
-      backgroundColor: Theme.of(context).colorScheme.surfaceContainer,
+      backgroundColor: Theme.of(context).colorScheme.surfaceContainerLow,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          bottomLeft: Constants.defaultBorderRadius,
+          bottomRight: Constants.defaultBorderRadius,
+        ),
+      ),
       title: DefaultTextField(
         hintText: "Search for a city name",
         onChanged: (p0) => controller.filterCities(p0),

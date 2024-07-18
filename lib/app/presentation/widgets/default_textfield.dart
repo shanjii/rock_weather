@@ -87,7 +87,7 @@ class DefaultTextField extends StatelessWidget {
   _textInputBorder() {
     return const OutlineInputBorder(
       borderSide: BorderSide.none,
-      borderRadius: Constants.defaultBorderRadius,
+      borderRadius: Constants.defaultBorderRadiusAll,
     );
   }
 }

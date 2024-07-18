@@ -15,6 +15,7 @@ class Details extends StatelessWidget {
       create: (context) => DetailsController(city: city),
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: Theme.of(context).colorScheme.surfaceContainerLow,
           title: Text("${city.location.name} forecast"),
         ),
         body: Consumer<DetailsController>(

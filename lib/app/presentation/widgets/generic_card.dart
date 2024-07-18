@@ -38,7 +38,7 @@ class GenericCard extends StatelessWidget {
         child: Card(
           shape: Constants.defaultRectangleBorder,
           child: InkWell(
-            borderRadius: Constants.defaultBorderRadius,
+            borderRadius: Constants.defaultBorderRadiusAll,
             onTap: onTap,
             child: Padding(
               padding: padding,
