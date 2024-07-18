@@ -2,10 +2,10 @@ import 'package:fpdart/fpdart.dart';
 import 'package:rock_weather/app/data/datasources/network/endpoints/base_endpoints.dart';
 import 'package:rock_weather/app/data/datasources/network/i_network_forecast_datasource.dart';
 import 'package:rock_weather/app/data/models/forecast_model.dart';
+import 'package:rock_weather/app/presentation/models/location.dart';
 import 'package:rock_weather/core/errors/failures.dart';
 import 'package:rock_weather/core/rest/http_error_handler.dart';
 import 'package:http/http.dart';
-import 'package:rock_weather/core/values/locations.dart';
 
 class NetworkForecastDatasource implements INetworkForecastDatasource {
   NetworkForecastDatasource(this.client);
@@ -14,11 +14,11 @@ class NetworkForecastDatasource implements INetworkForecastDatasource {
 
   @override
   Future<Either<Failure, ForecastModel>> getCurrentForecast(
-    LocationInfo info,
+    Location location,
   ) async {
     try {
       final response = await client.get(
-        BaseEndpoints.current(info.coordinates),
+        BaseEndpoints.current(location.coordinates),
       );
       final body = HttpErrorHandler.handleResponse(response);
 
@@ -32,11 +32,11 @@ class NetworkForecastDatasource implements INetworkForecastDatasource {
 
   @override
   Future<Either<Failure, List<ForecastModel>>> getFutureForecast(
-    LocationInfo info,
+    Location location,
   ) async {
     try {
       final response = await client.get(
-        BaseEndpoints.future(info.coordinates),
+        BaseEndpoints.future(location.coordinates),
       );
       final body = HttpErrorHandler.handleListResponse(response);
 

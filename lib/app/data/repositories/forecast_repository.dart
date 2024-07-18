@@ -4,8 +4,8 @@ import 'package:rock_weather/app/data/datasources/network/i_network_forecast_dat
 import 'package:rock_weather/app/data/models/forecast_model.dart';
 import 'package:rock_weather/app/domain/entities/forecast_entity.dart';
 import 'package:rock_weather/app/domain/repositories/i_forecast_repository.dart';
+import 'package:rock_weather/app/presentation/models/location.dart';
 import 'package:rock_weather/core/errors/failures.dart';
-import 'package:rock_weather/core/values/locations.dart';
 
 class ForecastRepository implements IForecastRepository {
   ForecastRepository(
@@ -18,14 +18,15 @@ class ForecastRepository implements IForecastRepository {
 
   @override
   Future<Either<Failure, ForecastEntity>> getCurrentForecast(
-    LocationInfo info,
+    Location location,
   ) async {
-    final network = await networkDatasource.getCurrentForecast(info);
+    final network = await networkDatasource.getCurrentForecast(location);
     if (network is Right<Failure, ForecastModel>) {
+      await localDatasource.setCurrentForecast(network.value, location);
       return Right<Failure, ForecastEntity>(network.value.toEntity());
     }
 
-    final local = await localDatasource.getCurrentForecast(info);
+    final local = await localDatasource.getCurrentForecast(location);
     if (local is Right<Failure, ForecastModel>) {
       return Right<Failure, ForecastEntity>(
         local.value.toEntity(),
@@ -37,16 +38,17 @@ class ForecastRepository implements IForecastRepository {
 
   @override
   Future<Either<Failure, List<ForecastEntity>>> getFutureForecast(
-    LocationInfo info,
+    Location location,
   ) async {
-    final network = await networkDatasource.getFutureForecast(info);
+    final network = await networkDatasource.getFutureForecast(location);
     if (network is Right<Failure, List<ForecastModel>>) {
+      await localDatasource.setFutureForecast(network.value, location);
       return Right<Failure, List<ForecastEntity>>(
         network.value.map((e) => e.toEntity()).toList(),
       );
     }
 
-    final local = await localDatasource.getFutureForecast(info);
+    final local = await localDatasource.getFutureForecast(location);
     if (local is Right<Failure, List<ForecastModel>>) {
       return Right<Failure, List<ForecastEntity>>(
         local.value.map((e) => e.toEntity()).toList(),

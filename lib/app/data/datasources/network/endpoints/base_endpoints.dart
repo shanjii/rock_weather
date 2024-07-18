@@ -1,4 +1,4 @@
-import 'package:rock_weather/core/utils/coordinates.dart';
+import 'package:rock_weather/app/presentation/models/coordinates.dart';
 
 class BaseEndpoints {
   static String baseUrl = "https://api.openweathermap.org/data/2.5";

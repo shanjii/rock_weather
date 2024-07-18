@@ -7,8 +7,8 @@ import 'package:rock_weather/app/data/datasources/network/i_network_forecast_dat
 import 'package:rock_weather/app/data/datasources/network/network_forecast_datasource.dart';
 import 'package:rock_weather/app/data/models/forecast_model.dart';
 import 'package:rock_weather/core/errors/failures.dart';
-import 'package:rock_weather/core/values/locations.dart';
 import '../../../../mocks/fake_forecast_factory.dart';
+import '../../../../mocks/fake_location_factory.dart';
 
 class MockClient extends Mock implements Client {}
 
@@ -28,27 +28,35 @@ void main() {
     );
   }
 
-  test("Should return [Right<Failure, ForecastModel>]", () async {
-    mockGet(FakeCurrentForecastFactory.makeMap(), 200);
-    final result = await datasource.getCurrentForecast(Locations.saoPaulo);
+  test("NetworkCurrentForecast should return ForecastModel", () async {
+    mockGet(FakeNetworkCurrentForecastFactory.makeMap(), 200);
+    final result = await datasource.getCurrentForecast(
+      FakeLocationFactory.location,
+    );
     expect(result, isA<Right<Failure, ForecastModel>>());
   });
 
-  test("Should return [Right<Failure, List<ForecastModel>>]", () async {
-    mockGet(FakeFutureForecastFactory.makeMap(), 200);
-    final result = await datasource.getFutureForecast(Locations.saoPaulo);
-    expect(result, isA<Right<Failure, List<ForecastModel>>>());
-  });
-
-  test("Should return [Left<Failure, ForecastModel>]", () async {
-    mockGet(FakeCurrentForecastFactory.makeMap(), 404);
-    final result = await datasource.getCurrentForecast(Locations.saoPaulo);
+  test("NetworkCurrentForecast should return Failure", () async {
+    mockGet(FakeNetworkCurrentForecastFactory.makeMap(), 404);
+    final result = await datasource.getCurrentForecast(
+      FakeLocationFactory.location,
+    );
     expect(result, isA<Left<Failure, ForecastModel>>());
   });
 
-  test("Should return Left<Failure, List<ForecastModel>>]", () async {
-    mockGet(FakeFutureForecastFactory.makeMap(), 404);
-    final result = await datasource.getFutureForecast(Locations.saoPaulo);
+  test("NetworkFutureForecast should return List<ForecastModel>", () async {
+    mockGet(FakeNetworkFutureForecastFactory.makeMap(), 200);
+    final result = await datasource.getFutureForecast(
+      FakeLocationFactory.location,
+    );
+    expect(result, isA<Right<Failure, List<ForecastModel>>>());
+  });
+
+  test("NetworkFutureForecast should return Failure", () async {
+    mockGet(FakeNetworkFutureForecastFactory.makeMap(), 404);
+    final result = await datasource.getFutureForecast(
+      FakeLocationFactory.location,
+    );
     expect(result, isA<Left<Failure, List<ForecastModel>>>());
   });
 }

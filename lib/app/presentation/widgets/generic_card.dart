@@ -5,7 +5,8 @@ class GenericCard extends StatelessWidget {
   ///A default [Card] widget.
   ///
   ///A card widget that can be customized with optional parameters.
-  ///Should receive a [child] widget that will be placed inside the [GenericCard].
+  ///Should receive a [child] widget that will be placed inside the [GenericCard] and
+  ///can also receive a [onTap] function optionally.
   const GenericCard({
     super.key,
     required this.child,
@@ -15,6 +16,7 @@ class GenericCard extends StatelessWidget {
   ///A widget to be placed inside the [GenericCard].
   final Widget child;
 
+  ///An optional [VoidCallback]
   final VoidCallback? onTap;
 
   @override
@@ -24,9 +26,9 @@ class GenericCard extends StatelessWidget {
       child: SizedBox(
         height: 200,
         child: Card(
-          shape: defaultRectangleBorder,
+          shape: Constants.defaultRectangleBorder,
           child: InkWell(
-            borderRadius: defaultBorderRadius,
+            borderRadius: Constants.defaultBorderRadius,
             onTap: onTap,
             child: child,
           ),

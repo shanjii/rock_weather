@@ -1,6 +1,21 @@
 import 'package:rock_weather/app/domain/entities/forecast_entity.dart';
 
-class FakeFutureForecastFactory {
+class FakeLocalFutureForecastFactory {
+  static List<Map<String, dynamic>> makeMap() =>
+      [FakeLocalCurrentForecastFactory.makeMap()];
+}
+
+class FakeLocalCurrentForecastFactory {
+  static Map<String, dynamic> makeMap() => {
+        'dt': 1,
+        'main': _FakeMainFactory.makeMap(),
+        'weather': [_FakeWeatherFactory.makeMap()],
+        'wind': _FakeWindFactory.makeMap(),
+        'visibility': 1,
+      };
+}
+
+class FakeNetworkFutureForecastFactory {
   static List<ForecastEntity> makeEntity() => [
         ForecastEntity(
           dt: 1,
@@ -12,11 +27,11 @@ class FakeFutureForecastFactory {
       ];
 
   static Map<String, dynamic> makeMap() => {
-        'list': [FakeCurrentForecastFactory.makeMap()],
+        'list': [FakeNetworkCurrentForecastFactory.makeMap()],
       };
 }
 
-class FakeCurrentForecastFactory {
+class FakeNetworkCurrentForecastFactory {
   static ForecastEntity makeEntity() => ForecastEntity(
         dt: 1,
         main: _FakeMainFactory.makeEntity(),
