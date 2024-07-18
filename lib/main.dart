@@ -10,7 +10,11 @@ late SharedPreferences globalSharedPrefs;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  //Flutter does use refresh rates higher than 60hz on Android devices,
+  //this method forces it to use the highest refresh rate available.
   if (Platform.isAndroid) await FlutterDisplayMode.setHighRefreshRate();
+
+  //Initialize global SharedPreferences instance.
   globalSharedPrefs = await SharedPreferences.getInstance();
 
   runApp(
