@@ -13,5 +13,14 @@ class Convertions {
     return DateFormat(format).format(date);
   }
 
-  // static DateTime dayFromTimestamp
+  ///Receives a [String] and removes its diacritics.
+  static String simplifyString(String string) {
+    var e = 'ÀÁÂÃÄÅàáâãäåÒÓÔÕÕÖØòóôõöøÈÉÊËèéêëðÇçÐÌÍÎÏìíîïÙÚÛÜùúûüÑñŠšŸÿýŽž';
+    var x = 'AAAAAAaaaaaaOOOOOOOooooooEEEEeeeeeCcDIIIIiiiiUUUUuuuuNnSsYyyZz';
+    for (int i = 0; i < e.length; i++) {
+      string = string.replaceAll(e[i], x[i]);
+    }
+
+    return string.toLowerCase();
+  }
 }

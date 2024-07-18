@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rock_weather/app/presentation/controllers/home_controller.dart';
 import 'package:rock_weather/app/presentation/screens/home/widgets/home_card.dart';
+import 'package:rock_weather/app/presentation/widgets/default_textfield.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -29,13 +30,17 @@ class _HomePageState extends State<Home> {
                   LinearProgressIndicator(
                     value: controller.isLoading ? null : 0,
                   ),
+                  DefaultTextField(
+                    padding: const EdgeInsets.all(10),
+                    hintText: "Search for a city name",
+                    onChanged: (p0) => controller.filterCities(p0),
+                  ),
                   Expanded(
                     child: ListView.builder(
-                      padding: const EdgeInsets.only(top: 10),
-                      itemCount: controller.cities.length,
+                      itemCount: controller.filteredCities.length,
                       itemBuilder: (context, index) {
                         return HomeCard(
-                          city: controller.cities[index],
+                          city: controller.filteredCities[index],
                         );
                       },
                     ),

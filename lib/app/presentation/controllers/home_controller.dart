@@ -10,6 +10,7 @@ import 'package:rock_weather/app/presentation/common/constants.dart';
 import 'package:rock_weather/app/presentation/models/city.dart';
 import 'package:rock_weather/app/presentation/models/location.dart';
 import 'package:rock_weather/core/errors/failures.dart';
+import 'package:rock_weather/core/utils/convertions.dart';
 import 'package:rock_weather/main.dart';
 
 class HomeController with ChangeNotifier {
@@ -29,7 +30,8 @@ class HomeController with ChangeNotifier {
 
   bool isLoading = false;
 
-  List<City> cities = [];
+  List<City> filteredCities = [];
+  List<City> allCities = [];
 
   getAllCurrentWeather() async {
     _setLoadingState(true);
@@ -40,7 +42,8 @@ class HomeController with ChangeNotifier {
       return getWeather(e);
     }).toList();
 
-    cities = await Future.wait(requests);
+    allCities = await Future.wait(requests);
+    filteredCities = allCities;
 
     _setLoadingState(false);
   }
@@ -53,6 +56,21 @@ class HomeController with ChangeNotifier {
     } else {
       return City(location: location, forecast: null);
     }
+  }
+
+  filterCities(String cityName) {
+    if (cityName.isEmpty) {
+      filteredCities = allCities;
+    } else {
+      final parsedName = Convertions.simplifyString(cityName);
+
+      filteredCities = allCities.where((e) {
+        final name = Convertions.simplifyString(e.location.name);
+        return name.contains(parsedName);
+      }).toList();
+    }
+
+    notifyListeners();
   }
 
   _setLoadingState(bool state) {
