@@ -25,7 +25,7 @@ class Constants {
       key: "saopaulo",
     ),
     Location(
-      coordinates: Coordinates(lat: "28.0836", lon: "-80.6081"),
+      coordinates: Coordinates(lat: "-37.814", lon: "144.9633"),
       name: "Melbourne",
       key: "melbourne",
     ),
