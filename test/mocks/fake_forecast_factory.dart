@@ -1,3 +1,4 @@
+import 'package:rock_weather/app/data/models/forecast_model.dart';
 import 'package:rock_weather/app/domain/entities/forecast_entity.dart';
 
 class FakeLocalFutureForecastFactory {
@@ -6,6 +7,22 @@ class FakeLocalFutureForecastFactory {
 }
 
 class FakeLocalCurrentForecastFactory {
+  static ForecastModel makeModel() => ForecastModel(
+        dt: 1,
+        main: _FakeMainFactory.makeModel(),
+        weather: [_FakeWeatherFactory.makeModel()],
+        wind: _FakeWindFactory.makeModel(),
+        visibility: 1,
+      );
+
+  static ForecastEntity makeEntity() => ForecastEntity(
+        dt: 1,
+        main: _FakeMainFactory.makeEntity(),
+        weather: [_FakeWeatherFactory.makeEntity()],
+        wind: _FakeWindFactory.makeEntity(),
+        visibility: 1,
+      );
+
   static Map<String, dynamic> makeMap() => {
         'dt': 1,
         'main': _FakeMainFactory.makeMap(),
@@ -32,6 +49,14 @@ class FakeNetworkFutureForecastFactory {
 }
 
 class FakeNetworkCurrentForecastFactory {
+  static ForecastModel makeModel() => ForecastModel(
+        dt: 1,
+        main: _FakeMainFactory.makeModel(),
+        weather: [_FakeWeatherFactory.makeModel()],
+        wind: _FakeWindFactory.makeModel(),
+        visibility: 1,
+      );
+
   static ForecastEntity makeEntity() => ForecastEntity(
         dt: 1,
         main: _FakeMainFactory.makeEntity(),
@@ -50,6 +75,18 @@ class FakeNetworkCurrentForecastFactory {
 }
 
 class _FakeMainFactory {
+  static MainModel makeModel() => MainModel(
+        temp: 1,
+        feelsLike: 1,
+        tempMin: 1,
+        tempMax: 1,
+        pressure: 1,
+        seaLevel: 1,
+        grndLevel: 1,
+        humidity: 1,
+        tempKf: 1,
+      );
+
   static MainEntity makeEntity() => MainEntity(
         temp: 1,
         feelsLike: 1,
@@ -76,6 +113,13 @@ class _FakeMainFactory {
 }
 
 class _FakeWeatherFactory {
+  static WeatherModel makeModel() => WeatherModel(
+        id: 1,
+        main: "string",
+        description: "string",
+        icon: "string",
+      );
+
   static WeatherEntity makeEntity() => WeatherEntity(
         id: 1,
         main: "string",
@@ -92,6 +136,12 @@ class _FakeWeatherFactory {
 }
 
 class _FakeWindFactory {
+  static WindModel makeModel() => WindModel(
+        speed: 1,
+        deg: 1,
+        gust: 1,
+      );
+
   static WindEntity makeEntity() => WindEntity(
         speed: 1,
         deg: 1,
