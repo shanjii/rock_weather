@@ -13,6 +13,10 @@ class Convertions {
     return DateFormat(format).format(date);
   }
 
+  static DateTime unixToDateTime(int dt) {
+    return DateTime.fromMillisecondsSinceEpoch(dt * 1000);
+  }
+
   ///Receives a [String] and removes its diacritics.
   static String simplifyString(String string) {
     var e = 'ÀÁÂÃÄÅàáâãäåÒÓÔÕÕÖØòóôõöøÈÉÊËèéêëðÇçÐÌÍÎÏìíîïÙÚÛÜùúûüÑñŠšŸÿýŽž';
