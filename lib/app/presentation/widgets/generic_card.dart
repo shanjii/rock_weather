@@ -9,6 +9,9 @@ class GenericCard extends StatelessWidget {
     super.key,
     required this.child,
     this.onTap,
+    this.margin = const EdgeInsets.all(10),
+    this.padding = const EdgeInsets.all(10),
+    this.height = 200,
   });
 
   ///A widget to be placed inside the [GenericCard].
@@ -17,18 +20,30 @@ class GenericCard extends StatelessWidget {
   ///An optional [VoidCallback]
   final VoidCallback? onTap;
 
+  ///A padding that will be used inside of the widget. **Default: 10**
+  final EdgeInsets padding;
+
+  ///A margin for the outside of the widget. **Default: 10**
+  final EdgeInsets margin;
+
+  ///The height of the [GenericCard]. **Default: 200**
+  final double height;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(10),
+      padding: margin,
       child: SizedBox(
-        height: 200,
+        height: height,
         child: Card(
           shape: Constants.defaultRectangleBorder,
           child: InkWell(
             borderRadius: Constants.defaultBorderRadius,
             onTap: onTap,
-            child: child,
+            child: Padding(
+              padding: padding,
+              child: child,
+            ),
           ),
         ),
       ),
