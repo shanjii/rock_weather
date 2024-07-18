@@ -1,6 +1,6 @@
 # rock_weather
 
-A basic weather forecast telemetry app that seeks to implement proper Clean Code architecture following SOLID patterns.
+A basic weather forecast telemetry app that seeks to implement proper Clean Code architecture in Flutter following SOLID patterns.
 
 Contains a home screen with current weather information for 4 of the following cities:
 
