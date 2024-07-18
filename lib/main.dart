@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_displaymode/flutter_displaymode.dart';
 import 'package:rock_weather/app/presentation/screens/home/home.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -6,7 +9,8 @@ late SharedPreferences globalSharedPrefs;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
+
+  if (Platform.isAndroid) await FlutterDisplayMode.setHighRefreshRate();
   globalSharedPrefs = await SharedPreferences.getInstance();
 
   runApp(
