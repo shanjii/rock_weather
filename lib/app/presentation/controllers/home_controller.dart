@@ -14,12 +14,14 @@ import 'package:rock_weather/main.dart';
 
 class HomeController with ChangeNotifier {
   HomeController() {
+    //Dependency injections
     currentForecastUsecase = CurrentForecastUsecase(
       ForecastRepository(
         NetworkForecastDatasource(Client()),
         LocalForecastDatasource(globalSharedPrefs),
       ),
     );
+    //Initial function
     getAllCurrentWeather();
   }
 

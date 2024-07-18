@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:rock_weather/app/domain/entities/forecast_entity.dart';
 import 'package:rock_weather/app/presentation/models/day_forecast.dart';
 import 'package:rock_weather/app/presentation/widgets/generic_card.dart';
 import 'package:rock_weather/core/utils/convertions.dart';
 
 class DayForecastCard extends StatelessWidget {
-  ///Default HomeCard.
-  ///
-  ///Display data from [ForecastEntity] through the [forecast] parameter
-  ///
-  ///If a [ForecastEntity] is not received, an empty content message will be shown instead.
+  ///Display the forecast of a given [DayForecast] through the [forecast] parameter.
   const DayForecastCard({super.key, required this.forecast});
 
   final DayForecast forecast;

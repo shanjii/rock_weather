@@ -13,12 +13,14 @@ import 'package:rock_weather/main.dart';
 
 class DetailsController with ChangeNotifier {
   DetailsController({required this.city}) {
+    //Dependency injection
     futureForecastUsecase = FutureForecastUsecase(
       ForecastRepository(
         NetworkForecastDatasource(Client()),
         LocalForecastDatasource(globalSharedPrefs),
       ),
     );
+    //Initial function
     getFutureForecast();
   }
 

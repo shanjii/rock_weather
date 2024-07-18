@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:rock_weather/app/presentation/common/constants.dart';
 
 class GenericCard extends StatelessWidget {
-  ///A default [Card] widget.
-  ///
   ///A card widget that can be customized with optional parameters.
   ///Should receive a [child] widget that will be placed inside the [GenericCard] and
   ///can also receive a [onTap] function optionally.

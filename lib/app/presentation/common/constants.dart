@@ -10,6 +10,7 @@ class Constants {
     borderRadius: defaultBorderRadius,
   );
 
+  //Preset locations with names and coordinates
   static const locations = [
     Location(
       coordinates: Coordinates(lat: "52.0922", lon: "-1.026"),

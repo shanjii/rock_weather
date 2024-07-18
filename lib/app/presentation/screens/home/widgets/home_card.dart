@@ -1,20 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:rock_weather/app/domain/entities/forecast_entity.dart';
 import 'package:rock_weather/app/presentation/models/city.dart';
-import 'package:rock_weather/app/presentation/models/location.dart';
 import 'package:rock_weather/app/presentation/screens/details/details.dart';
 import 'package:rock_weather/app/presentation/widgets/generic_card.dart';
 
 class HomeCard extends StatelessWidget {
-  ///Default HomeCard.
+  ///Display data of the given [City] through the [city] parameter.
   ///
-  ///Display data from [ForecastEntity] through the [forecast] parameter and
-  ///can navigate to the specified [Location] with the [location] parameter.
-  ///
-  ///If a [ForecastEntity] is not received, an empty content message will be shown instead.
+  ///If [City] does not contain a valid [ForecastEntity], an empty content message will be shown instead.
   const HomeCard({super.key, required this.city});
 
-  ///A nullable [forecast] of [ForecastEntity] type.
+  ///Receives a [City], if the [ForecastEntity] is null the card will display an empty content message.
   final City city;
 
   @override
